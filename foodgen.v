@@ -2,6 +2,7 @@
 module foodgen(
   input clk,
   input frame_clk,
+  input rst,
   input [9:0] hpos, 
   input [9:0] vpos,
   input new_food_flag,
@@ -10,19 +11,29 @@ module foodgen(
   output food_loc
 );
   
-  reg [7:0] counter;
+  
   wire food_loc;
+  reg [4:0] food_h;
+  reg [4:0] food_v = 6;
+
+  assign food_loc = (hpos > food_h*20) & (hpos < (food_h+1)*20) & (vpos > food_v*20) & (vpos < (food_v+1)*20);
   
-  assign food_loc = (hpos > food_h*20) & (hpos < ({5'b0,food_h}+1)*20) & (vpos > food_v*20) & (vpos < ({5'b0,food_v}+1)*20);
-  
+
+  //https://electronics.stackexchange.com/questions/30521/random-bit-sequence-using-verilog
+  reg [4:0] rng0 = 1;
+  reg [4:0] rng1 = 3;
+
   always @(posedge clk) begin
-    counter <= counter + 1;
+    rng0 <= { rng0[3:0], rng0[4] ^ rng0[2] };
+    rng1 <= { rng1[3:0], rng1[4] ^ rng1[2] };
   end
   
   always @(posedge frame_clk) begin
     if (new_food_flag) begin
-      food_h <= counter[4:0];
-      food_v <= counter[5:1] - 7 * (counter[5:1] > 24);
+      food_h <= rng0;
+      food_v <= rng1 - (8 * (rng1 > 23));
+      //food_h <= counter[3:0];
+      //food_v <= counter[4:1] - 7 * (counter[4:1] > 24);
     end
   end
   

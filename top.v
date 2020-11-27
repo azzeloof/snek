@@ -5,12 +5,13 @@ module top(
     input PIN_6,    // down
     input PIN_3,    // left
     input PIN_24,   // right
-    //output LED,     // User/boot LED next to pwr
+    output LED,     // User/boot LED next to pwr
     output PIN_11,  // hsync
     output PIN_12,  // vsync
     output PIN_21,  // red
     output PIN_20,  // green
     output PIN_19,  // blue
+    output PIN_1,   // debug
     output USBPU    // USB pull-up resistor
 );
 
@@ -47,14 +48,64 @@ reg blue;
 reg hsync;
 reg vsync;
 
-wire [3:0] buttons; // {up, down, left, right}
-assign buttons = {PIN_2, PIN_6, PIN_3, PIN_24};
-
 assign PIN_21 = red;
 assign PIN_20 = green;
 assign PIN_19 = blue;
 assign PIN_11 = hsync;
 assign PIN_12 = vsync;
+
+wire debug;
+wire frame_clk;
+assign PIN_1 = frame_clk;
+assign LED = frame_clk;
+
+/*wire btns [3:0];
+SB_IO #(
+  .PIN_TYPE(6'b 0000_01),
+  .PULLUP(1'b 1)
+) button_input(
+  .PACKAGE_PIN({PIN_12, PIN_6, PIN_3, PIN_24}),
+  .D_IN_0(btns)
+);*/
+
+wire btn0_state, btn0_dn, btn0_up;
+debounce d_btn0 (
+  .clk(CLK),
+  .i_btn(PIN_2),
+  .o_state(btn0_state),
+  .o_ondn(btn0_dn),
+  .o_onup(btn0_up)
+);
+
+wire btn1_state, btn1_dn, btn1_up;
+debounce d_btn1 (
+  .clk(CLK),
+  .i_btn(PIN_6),
+  .o_state(btn1_state),
+  .o_ondn(btn1_dn),
+  .o_onup(btn1_up)
+);
+
+wire btn2_state, btn2_dn, btn2_up;
+debounce d_btn2 (
+  .clk(CLK),
+  .i_btn(PIN_3),
+  .o_state(btn2_state),
+  .o_ondn(btn2_dn),
+  .o_onup(btn2_up)
+);
+
+wire btn3_state, btn3_dn, btn3_up;
+debounce d_btn3 (
+  .clk(CLK),
+  .i_btn(PIN_24),
+  .o_state(btn3_state),
+  .o_ondn(btn3_dn),
+  .o_onup(btn3_up)
+);
+
+wire [3:0] buttons; // {up, down, left, right}
+assign buttons = {btn0_dn, btn1_dn, btn2_dn, btn3_dn};
 
 snek mygame(
     .clk(clk_25MHz),
@@ -62,7 +113,17 @@ snek mygame(
     .buttons(buttons),
     .hsync(hsync),
     .vsync(vsync),
-    .rgb({red, green, blue})
+    .rgb({red, green, blue}),
+    .fc(debug)
 );
+
+clk_divider frame_clk_div (
+    .clk(CLK),
+    .rst(0),
+    .cycles(32'd66666),
+    .clk_div(frame_clk)
+  );
+
+
 
 endmodule

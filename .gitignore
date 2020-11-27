@@ -1,0 +1,7 @@
+
+*.blif
+*.blif
+hardware.bin
+*.asc
+*.history
+*.dblite
