@@ -21,6 +21,9 @@ wire rst;
 assign rst = PIN_7;
 wire clk_25MHz; // VGA clock
 
+assign PIN_1 = 0;
+assign LED = 1;
+
 SB_PLL40_CORE usb_pll_inst (
   .REFERENCECLK(CLK),
   .PLLOUTCORE(clk_25MHz),
@@ -55,9 +58,6 @@ assign PIN_11 = hsync;
 assign PIN_12 = vsync;
 
 wire debug;
-wire frame_clk;
-assign PIN_1 = frame_clk;
-assign LED = frame_clk;
 
 /*wire btns [3:0];
 SB_IO #(
@@ -116,13 +116,6 @@ snek mygame(
     .rgb({red, green, blue}),
     .fc(debug)
 );
-
-clk_divider frame_clk_div (
-    .clk(CLK),
-    .rst(0),
-    .cycles(32'd66666),
-    .clk_div(frame_clk)
-  );
 
 
 

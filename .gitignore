@@ -5,3 +5,4 @@ hardware.bin
 *.asc
 *.history
 *.dblite
+*.blif

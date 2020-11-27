@@ -30,20 +30,23 @@ module snek(
   reg frame_clk;
   reg grow_flag = 0;
   reg [2:0] snek_dir = 0;
-  wire [4:0] head_h;
-  wire [4:0] head_v;
+  wire [5:0] head_h;
+  wire [5:0] head_v;
   
   reg new_food_flag = 1;
   wire [4:0] food_h;
   wire [4:0] food_v;
 
-  reg newgame;
+  reg game_rst = 0;
+  wire deadsnek;
   reg millis_clk;
   reg gamestate = 0; // 0=splash screen, 1=playing
-  reg [15:0] splashctr = 0;
+  reg [31:0] splashctr = 0;
+  wire [7:0] snek_len;
 
   snekgen mysnek (
     .frame_clk(frame_clk),
+    .rst(game_rst),
     .hpos(hpos),
     .vpos(vpos),
     .grow_flag(grow_flag),
@@ -51,13 +54,15 @@ module snek(
     .run(gamestate),
     .snek_loc(snek_loc),
     .head_h(head_h),
-    .head_v(head_v)
+    .head_v(head_v),
+    .body_counter(snek_len),
+    .dead(deadsnek)
   );
   
   foodgen kitchen(
     .clk(clk),
     .frame_clk(frame_clk),
-    .rst(rst),
+    .rst(game_rst),
     .hpos(hpos),
     .vpos(vpos),
     .new_food_flag(new_food_flag),
@@ -66,17 +71,18 @@ module snek(
     .food_loc(food_loc)
   );
   
+  //fun bug- there-s no lower limit on cycles here
   clk_divider frame_clk_div (
     .clk(clk),
     .rst(0),
-    .cycles(24'd6250000),
+    .cycles(24'd6250000 - 200000*snek_len), // speed up as the game goes on
     .clk_div(frame_clk)
   );
 
   clk_divider millis_clk_div (
     .clk(clk),
     .rst(0),
-    .cycles(24'd9000),
+    .cycles(24'd12500),
     .clk_div(millis_clk)
   );
 
@@ -95,7 +101,7 @@ module snek(
   );
 
   wire fc;
-  assign fc =  frame_clk;
+  assign fc = frame_clk;
   
   // I think we're running at 640x480
   // Let's use a grid 32x24 (x20 factor)
@@ -114,7 +120,7 @@ module snek(
       end
     end
   end
-  
+
   always @(posedge clk) begin
     if (buttons[1]) begin // left
       snek_dir <= 0;
@@ -134,9 +140,18 @@ module snek(
     if (grow_flag) begin
       grow_flag <= 0;
     end
-    if ((head_h == food_h) & (head_v == food_v)) begin
+    if ((head_h == {0,food_h}) & (head_v == {0,food_v})) begin
       new_food_flag <= 1;
       grow_flag <= 1;
+    end
+    if (game_rst) begin
+      game_rst <= 0;
+    end
+    if (deadsnek) begin
+      game_rst <= 1;
+    end
+    if (food_v > 23) begin
+      new_food_flag <= 1;
     end
   end
   
