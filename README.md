@@ -1,5 +1,5 @@
 # snek
-This is a real hacky snake clone written in verilog. It's designed for the TinyFPGA BX, but it should be easily extendable to other platforms by rewriting top.v.
+This is a real hacky snake clone written in verilog over the course of 2.5 days for a game jam. It's designed for the TinyFPGA BX, but it should be easily extendable to other platforms by rewriting top.v.
 
 The game is played via four pushbuttons connected to the FPGA, and video is output over VGA (640x480).
 
