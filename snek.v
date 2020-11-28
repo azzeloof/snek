@@ -54,6 +54,7 @@ module snek(
 
   // Generate the snek
   snekgen mysnek (
+    .clk(clk),
     .frame_clk(frame_clk),
     .rst(game_rst),
     .hpos(hpos),
@@ -71,7 +72,6 @@ module snek(
   // Make some food
   foodgen kitchen(
     .clk(clk),
-    .frame_clk(frame_clk),
     .rst(game_rst),
     .hpos(hpos),
     .vpos(vpos),
@@ -86,7 +86,7 @@ module snek(
   clk_divider frame_clk_div (
     .clk(clk),
     .rst(0),
-    .cycles(24'd6250000 - 200000*snek_len), // speed up as the game goes on
+    .cycles(24'd3125000 - 200000*snek_len), // speed up as the game goes on
     .clk_div(frame_clk)
   );
 
@@ -123,8 +123,8 @@ module snek(
   
   // Connect all of the graphics wires
   wire r = display_on & ((splash_r & ~gamestate) | (gamestate & ~(snek_loc)));
-  wire g = display_on & ((splash_g & ~gamestate) | (gamestate & ~(food_loc)));
-  wire b = display_on & ((splash_b & ~gamestate) | (gamestate & ~(snek_loc ^ food_loc)));
+  wire g = display_on & ((splash_g & ~gamestate) | (gamestate & ~(food_loc & ~deadsnek)));
+  wire b = display_on & ((splash_b & ~gamestate) | (gamestate & ~(snek_loc ^ (food_loc & ~deadsnek))));
   
   assign rgb = {r, g, b};
 
@@ -148,10 +148,6 @@ module snek(
     end else if (buttons[3]) begin //down
       snek_dir <= 3;
     end
-  end
-  
-  // Monitor game state, reset or create new food as needed
-  always @(posedge frame_clk) begin
     if (new_food_flag) begin
       new_food_flag <= 0;
     end

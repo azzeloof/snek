@@ -7,7 +7,6 @@ Adam Zeloof
 
 module foodgen(
   input clk,
-  input frame_clk,
   input rst,
   input [9:0] hpos, 
   input [9:0] vpos,
@@ -28,13 +27,10 @@ module foodgen(
   reg [4:0] rng0 = 1;
   reg [4:0] rng1 = 3;
   // Keep the numbers changing every clock cycle
+  
   always @(posedge clk) begin
     rng0 <= { rng0[3:0], rng0[4] ^ rng0[2] };
     rng1 <= { rng1[3:0], rng1[4] ^ rng1[2] };
-  end
-  
-  // Move the food to a new location when needed
-  always @(posedge frame_clk) begin
     if (new_food_flag) begin
       food_h <= rng0;
       food_v <= rng1;

@@ -6,6 +6,7 @@ Adam Zeloof
 */
 
 module snekgen(
+  input clk,
   input frame_clk,
   input rst,
   input [9:0] hpos,
@@ -58,14 +59,29 @@ module snekgen(
   assign snek_loc = |snec_locs; // OR all of the locations togethor to be displayed
  
   reg dead;
+  reg do_grow;
+  reg did_grow;
+
+  always @(posedge clk) begin
+    if (grow_flag) begin
+      do_grow <= 1;
+    end
+    if (did_grow) begin
+      do_grow <= 0;
+    end
+  end
 
   always @(posedge frame_clk) begin
     if (run) begin // only move when the game is running (not during splashscreen)
-      if (grow_flag) begin
+      if (did_grow) begin
+        did_grow <= 0;
+      end
+      if (do_grow) begin
         // Bring the next body segment onto the screen
         body_counter <= body_counter + 1;
         body_h[body_counter] <= body_h[body_counter-1];
         body_v[body_counter] <= body_v[body_counter-1];
+        did_grow <= 1;
       end
       // Switch directions
       if (dir == 0) begin

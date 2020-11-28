@@ -67,45 +67,8 @@ assign PIN_12 = vsync;
 
 wire debug;
 
-// Debounce the buttons to clean up the signals
-wire btn0_state, btn0_dn, btn0_up;
-debounce d_btn0 (
-  .clk(CLK),
-  .i_btn(PIN_2),
-  .o_state(btn0_state),
-  .o_ondn(btn0_dn),
-  .o_onup(btn0_up)
-);
-
-wire btn1_state, btn1_dn, btn1_up;
-debounce d_btn1 (
-  .clk(CLK),
-  .i_btn(PIN_6),
-  .o_state(btn1_state),
-  .o_ondn(btn1_dn),
-  .o_onup(btn1_up)
-);
-
-wire btn2_state, btn2_dn, btn2_up;
-debounce d_btn2 (
-  .clk(CLK),
-  .i_btn(PIN_3),
-  .o_state(btn2_state),
-  .o_ondn(btn2_dn),
-  .o_onup(btn2_up)
-);
-
-wire btn3_state, btn3_dn, btn3_up;
-debounce d_btn3 (
-  .clk(CLK),
-  .i_btn(PIN_24),
-  .o_state(btn3_state),
-  .o_ondn(btn3_dn),
-  .o_onup(btn3_up)
-);
-
 wire [3:0] buttons; // {up, down, left, right}
-assign buttons = {btn0_dn, btn1_dn, btn2_dn, btn3_dn};
+assign buttons = ~{PIN_2, PIN_6, PIN_3, PIN_24}; // No debounce needed
 
 snek mygame(
     .clk(clk_25MHz),
