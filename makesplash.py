@@ -1,3 +1,12 @@
+"""
+makesplash.py
+snek
+Adam Zeloof
+11/27/2020
+
+Take a 640x480 PNG and spit out a file with binary pixels
+
+"""
 from PIL import Image, ImageOps
 
 threshold = 127
@@ -5,8 +14,6 @@ threshold = 127
 im = Image.open('splash.png')
 f = open('splash.bin', 'w')
 pix = im.load(),
-print(im.size)
-print(min(im.getpixel((12, 12))))
 im = ImageOps.mirror(im)
 
 for j in range(0, im.size[1]):

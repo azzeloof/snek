@@ -1,3 +1,10 @@
+/*
+top.v
+snek
+Adam Zeloof
+11/27/2020
+*/
+
 module top(
     input CLK,      // 16 MHz Clock
     input PIN_7,    // rst
@@ -11,7 +18,6 @@ module top(
     output PIN_21,  // red
     output PIN_20,  // green
     output PIN_19,  // blue
-    output PIN_1,   // debug
     output USBPU    // USB pull-up resistor
 );
 
@@ -21,9 +27,10 @@ wire rst;
 assign rst = PIN_7;
 wire clk_25MHz; // VGA clock
 
-assign PIN_1 = 0;
 assign LED = 1;
 
+
+// Create a PLL to generate the 25MHz VGA clock
 SB_PLL40_CORE usb_pll_inst (
   .REFERENCECLK(CLK),
   .PLLOUTCORE(clk_25MHz),
@@ -51,6 +58,7 @@ reg blue;
 reg hsync;
 reg vsync;
 
+// Pins connected to the VGA connector (with resistors)
 assign PIN_21 = red;
 assign PIN_20 = green;
 assign PIN_19 = blue;
@@ -59,15 +67,7 @@ assign PIN_12 = vsync;
 
 wire debug;
 
-/*wire btns [3:0];
-SB_IO #(
-  .PIN_TYPE(6'b 0000_01),
-  .PULLUP(1'b 1)
-) button_input(
-  .PACKAGE_PIN({PIN_12, PIN_6, PIN_3, PIN_24}),
-  .D_IN_0(btns)
-);*/
-
+// Debounce the buttons to clean up the signals
 wire btn0_state, btn0_dn, btn0_up;
 debounce d_btn0 (
   .clk(CLK),
