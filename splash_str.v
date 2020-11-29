@@ -36,8 +36,8 @@ module splash_str (
         strRGB_reg <= strRGB_i;
 
         // Get image from memory.
-        strRGB_reg[`R] <= 0;
-        strRGB_reg[`G] <= mem [strRGB_i [`YC] + 1] [strRGB_i [`XC]];
+        strRGB_reg[`R] <= mem [strRGB_i [`YC] + 1] [strRGB_i [`XC]];
+        strRGB_reg[`G] <= 1;
         strRGB_reg[`B] <= 0;
     end
 
