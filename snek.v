@@ -104,16 +104,33 @@ module snek(
   wire splash_g;
   wire splash_b;
 
-  // Create the splashscreen
-  splash splashscreen (
-    .clk(frame_clk),
-    .rst(0),
-    .hpos(hpos),
-    .vpos(vpos),
-    .r(splash_r),
-    .g(splash_g),
-    .b(splash_b),
+  // --- Create the splashscreen (with stream RGB) ---
+  // Bit address alias.
+  `define active 0:0
+  `define VS     1:1
+  `define HS     2:2
+  `define YC     12:3
+  `define XC     22:13
+  `define R      23:23
+  `define G      24:24
+  `define B      25:25
+
+  // Zip RGB stream.
+  wire [25:0] strRGB_i, strRGB_o;
+  assign strRGB_i = {3'b100, hpos, vpos, hsync, vsync, display_on};
+
+  splash_str splashscreen (
+    .px_clk(clk),
+    .strRGB_i(strRGB_i),
+    .strRGB_o(strRGB_o)
   );
+
+  // Unzip stream RGB.
+  assign splash_r = strRGB_o[`R];
+  assign splash_g = strRGB_o[`G];
+  assign splash_b = strRGB_o[`B];
+
+  // --- End of splash screen with stream RGB ---
 
   wire fc;
   assign fc = frame_clk;
