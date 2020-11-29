@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name snek)(type KiCad)(uri ${KIPRJMOD}/snek.pretty)(options "")(descr ""))
+)

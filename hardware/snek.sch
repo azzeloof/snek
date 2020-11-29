@@ -1,0 +1,345 @@
+EESchema Schematic File Version 4
+LIBS:snek-cache
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:R_US R5
+U 1 1 5FC29905
+P 8800 2450
+F 0 "R5" V 8595 2450 50  0000 C CNN
+F 1 "270" V 8686 2450 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 8840 2440 50  0001 C CNN
+F 3 "~" H 8800 2450 50  0001 C CNN
+	1    8800 2450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R6
+U 1 1 5FC2A2D9
+P 8250 2550
+F 0 "R6" V 8045 2550 50  0000 C CNN
+F 1 "270" V 8136 2550 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 8290 2540 50  0001 C CNN
+F 3 "~" H 8250 2550 50  0001 C CNN
+	1    8250 2550
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R7
+U 1 1 5FC2A5A5
+P 7600 2650
+F 0 "R7" V 7395 2650 50  0000 C CNN
+F 1 "270" V 7486 2650 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7640 2640 50  0001 C CNN
+F 3 "~" H 7600 2650 50  0001 C CNN
+	1    7600 2650
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R8
+U 1 1 5FC2A893
+P 8800 3850
+F 0 "R8" V 8595 3850 50  0000 C CNN
+F 1 "82.5" V 8686 3850 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 8840 3840 50  0001 C CNN
+F 3 "~" H 8800 3850 50  0001 C CNN
+	1    8800 3850
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R9
+U 1 1 5FC2ABD3
+P 8150 3950
+F 0 "R9" V 7945 3950 50  0000 C CNN
+F 1 "82.5" V 8036 3950 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 8190 3940 50  0001 C CNN
+F 3 "~" H 8150 3950 50  0001 C CNN
+	1    8150 3950
+	0    1    1    0   
+$EndComp
+$Comp
+L Switch:SW_Push SW1
+U 1 1 5FC2E36E
+P 3700 2800
+F 0 "SW1" H 3700 3085 50  0000 C CNN
+F 1 "UP" H 3700 2994 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 3700 3000 50  0001 C CNN
+F 3 "~" H 3700 3000 50  0001 C CNN
+	1    3700 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW2
+U 1 1 5FC2F0E8
+P 3150 2900
+F 0 "SW2" H 3150 3185 50  0000 C CNN
+F 1 "LEFT" H 3150 3094 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 3150 3100 50  0001 C CNN
+F 3 "~" H 3150 3100 50  0001 C CNN
+	1    3150 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW3
+U 1 1 5FC2F407
+P 2550 3200
+F 0 "SW3" H 2550 3485 50  0000 C CNN
+F 1 "DOWN" H 2550 3394 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 2550 3400 50  0001 C CNN
+F 3 "~" H 2550 3400 50  0001 C CNN
+	1    2550 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW4
+U 1 1 5FC2F71F
+P 6050 2900
+F 0 "SW4" H 6050 3185 50  0000 C CNN
+F 1 "RIGHT" H 6050 3094 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 6050 3100 50  0001 C CNN
+F 3 "~" H 6050 3100 50  0001 C CNN
+	1    6050 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L snek:TinyFPGA-BX U1
+U 1 1 5FC30DFE
+P 4100 2400
+F 0 "U1" H 4700 2425 50  0000 C CNN
+F 1 "TinyFPGA-BX" H 4700 2334 50  0000 C CNN
+F 2 "snek:TinyFPGA-BX" H 4700 1500 50  0001 C CNN
+F 3 "" H 4700 1500 50  0001 C CNN
+	1    4100 2400
+	1    0    0    -1  
+$EndComp
+Text GLabel 5450 2800 2    50   Input ~ 0
+VCC
+Wire Wire Line
+	5450 2800 5300 2800
+Wire Wire Line
+	5850 2900 5800 2900
+$Comp
+L Device:R_US R4
+U 1 1 5FC39416
+P 5800 2350
+F 0 "R4" H 5868 2396 50  0000 L CNN
+F 1 "R_US" H 5868 2305 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 5840 2340 50  0001 C CNN
+F 3 "~" H 5800 2350 50  0001 C CNN
+	1    5800 2350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5800 2500 5800 2900
+Connection ~ 5800 2900
+Wire Wire Line
+	5800 2900 5300 2900
+Text GLabel 5450 2700 2    50   Input ~ 0
+GND
+Wire Wire Line
+	5450 2700 5300 2700
+Wire Wire Line
+	3900 2800 3950 2800
+Wire Wire Line
+	3350 2900 3400 2900
+Wire Wire Line
+	2750 3200 2800 3200
+$Comp
+L Device:R_US R3
+U 1 1 5FC3B42F
+P 3950 2350
+F 0 "R3" H 4018 2396 50  0000 L CNN
+F 1 "R_US" H 4018 2305 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 3990 2340 50  0001 C CNN
+F 3 "~" H 3950 2350 50  0001 C CNN
+	1    3950 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_US R2
+U 1 1 5FC3CB6A
+P 3400 2350
+F 0 "R2" H 3468 2396 50  0000 L CNN
+F 1 "R_US" H 3468 2305 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 3440 2340 50  0001 C CNN
+F 3 "~" H 3400 2350 50  0001 C CNN
+	1    3400 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_US R1
+U 1 1 5FC3DEC4
+P 2800 2350
+F 0 "R1" H 2868 2396 50  0000 L CNN
+F 1 "R_US" H 2868 2305 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 2840 2340 50  0001 C CNN
+F 3 "~" H 2800 2350 50  0001 C CNN
+	1    2800 2350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2800 2500 2800 3200
+Connection ~ 2800 3200
+Wire Wire Line
+	2800 3200 4100 3200
+Wire Wire Line
+	3400 2500 3400 2900
+Connection ~ 3400 2900
+Wire Wire Line
+	3400 2900 4100 2900
+Wire Wire Line
+	3950 2500 3950 2800
+Connection ~ 3950 2800
+Wire Wire Line
+	3950 2800 4100 2800
+Wire Wire Line
+	2800 2200 2800 2050
+Wire Wire Line
+	2800 2050 3400 2050
+Wire Wire Line
+	3400 2050 3400 2200
+Wire Wire Line
+	3400 2050 3950 2050
+Wire Wire Line
+	3950 2050 3950 2200
+Connection ~ 3400 2050
+Wire Wire Line
+	3950 2050 5800 2050
+Wire Wire Line
+	5800 2050 5800 2200
+Connection ~ 3950 2050
+Text GLabel 2600 2050 0    50   Input ~ 0
+VCC
+Wire Wire Line
+	2600 2050 2800 2050
+Connection ~ 2800 2050
+$Comp
+L power:GND #PWR02
+U 1 1 5FC41430
+P 2350 4050
+F 0 "#PWR02" H 2350 3800 50  0001 C CNN
+F 1 "GND" H 2355 3877 50  0000 C CNN
+F 2 "" H 2350 4050 50  0001 C CNN
+F 3 "" H 2350 4050 50  0001 C CNN
+	1    2350 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2350 4050 2350 3900
+Wire Wire Line
+	2950 2900 2950 3900
+Wire Wire Line
+	2950 3900 2350 3900
+Connection ~ 2350 3900
+Wire Wire Line
+	2350 3900 2350 3200
+Wire Wire Line
+	3500 2800 3500 3900
+Wire Wire Line
+	3500 3900 2950 3900
+Connection ~ 2950 3900
+$Comp
+L power:GND #PWR01
+U 1 1 5FC43917
+P 6350 3000
+F 0 "#PWR01" H 6350 2750 50  0001 C CNN
+F 1 "GND" H 6355 2827 50  0000 C CNN
+F 2 "" H 6350 3000 50  0001 C CNN
+F 3 "" H 6350 3000 50  0001 C CNN
+	1    6350 3000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6250 2900 6350 2900
+Wire Wire Line
+	6350 2900 6350 3000
+Text GLabel 2250 3900 0    50   Input ~ 0
+GND
+Wire Wire Line
+	2250 3900 2350 3900
+Text GLabel 5400 3200 2    50   Input ~ 0
+RED
+Text GLabel 5400 3300 2    50   Input ~ 0
+GREEN
+Text GLabel 5400 3400 2    50   Input ~ 0
+BLUE
+Text GLabel 4000 3700 0    50   Input ~ 0
+HSYNC
+Text GLabel 4000 3800 0    50   Input ~ 0
+VSYNC
+Wire Wire Line
+	4000 3800 4100 3800
+Wire Wire Line
+	4100 3700 4000 3700
+Wire Wire Line
+	5400 3200 5300 3200
+Wire Wire Line
+	5400 3300 5300 3300
+Wire Wire Line
+	5400 3400 5300 3400
+Text GLabel 8600 2450 0    50   Input ~ 0
+RED
+Text GLabel 8050 2550 0    50   Input ~ 0
+GREEN
+Text GLabel 7400 2650 0    50   Input ~ 0
+BLUE
+Text GLabel 8600 3850 0    50   Input ~ 0
+HSYNC
+Text GLabel 7950 3950 0    50   Input ~ 0
+VSYNC
+$Comp
+L L77HDE15SD1CH4F:L77HDE15SD1CH4F J1
+U 1 1 5FC5B6E5
+P 9500 3350
+F 0 "J1" H 9828 3396 50  0000 L CNN
+F 1 "L77HDE15SD1CH4F" H 9828 3305 50  0000 L CNN
+F 2 "snek:AMPHENOL_L77HDE15SD1CH4F" H 9500 3350 50  0001 L BNN
+F 3 "" H 9500 3350 50  0001 L BNN
+F 4 "12.55mm" H 9500 3350 50  0001 L BNN "MAXIMUM_PACKAGE_HEIGHT"
+F 5 "Manufacturer Recommendations" H 9500 3350 50  0001 L BNN "STANDARD"
+F 6 "N/A" H 9500 3350 50  0001 L BNN "PARTREV"
+F 7 "Amphenol" H 9500 3350 50  0001 L BNN "MANUFACTURER"
+	1    9500 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8650 2450 8600 2450
+Wire Wire Line
+	9000 2450 8950 2450
+Wire Wire Line
+	8400 2550 9000 2550
+Wire Wire Line
+	8100 2550 8050 2550
+Wire Wire Line
+	7400 2650 7450 2650
+Wire Wire Line
+	7750 2650 9000 2650
+Wire Wire Line
+	9000 3850 8950 3850
+Wire Wire Line
+	8650 3850 8600 3850
+Wire Wire Line
+	8300 3950 9000 3950
+Wire Wire Line
+	7950 3950 8000 3950
+Text GLabel 8900 2850 0    50   Input ~ 0
+GND
+Wire Wire Line
+	8900 2850 9000 2850
+Text GLabel 8900 4250 0    50   Input ~ 0
+GND
+Wire Wire Line
+	8900 4250 9000 4250
+$EndSCHEMATC
