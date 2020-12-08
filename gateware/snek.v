@@ -137,11 +137,10 @@ module snek(
   
   // I think we're running at 640x480
   // Let's use a grid 32x24 (x20 factor)
-  
-  // Connect all of the graphics wires
-  wire r = display_on & ((splash_r & ~gamestate) | (gamestate & ~(snek_loc)));
-  wire g = display_on & ((splash_g & ~gamestate) | (gamestate & ~(food_loc & ~deadsnek)));
-  wire b = display_on & ((splash_b & ~gamestate) | (gamestate & ~(snek_loc ^ (food_loc & ~deadsnek))));
+
+  reg r;
+  reg g;
+  reg b;
   
   assign rgb = {r, g, b};
 
@@ -184,6 +183,10 @@ module snek(
     if (food_v > 23) begin
       new_food_flag <= 1;
     end
+  r <= display_on & ((splash_r & ~gamestate) | (gamestate & ~(snek_loc)));
+  g <= display_on & ((splash_g & ~gamestate) | (gamestate & ~(food_loc & ~deadsnek)));
+  b <= display_on & ((splash_b & ~gamestate) | (gamestate & ~(snek_loc ^ (food_loc & ~deadsnek))));
   end
+
   
 endmodule

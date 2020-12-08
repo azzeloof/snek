@@ -16,12 +16,10 @@ module foodgen(
   output food_loc
 );
   
-  wire food_loc;
+  reg food_loc;
   reg [4:0] food_h;
   reg [4:0] food_v;
 
-  assign food_loc = (hpos > food_h*20) & (hpos < (food_h+1)*20) & (vpos > food_v*20) & (vpos < (food_v+1)*20);
-  
   //Pseudo-random number generators
   //https://electronics.stackexchange.com/questions/30521/random-bit-sequence-using-verilog
   reg [4:0] rng0 = 1;
@@ -39,6 +37,7 @@ module foodgen(
       food_h <= rng0;
       food_v <= rng1;
     end
+    food_loc <= (hpos > food_h*20) & (hpos < (food_h+1)*20) & (vpos > food_v*20) & (vpos < (food_v+1)*20);
   end
   
 endmodule

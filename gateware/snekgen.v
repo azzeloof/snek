@@ -25,6 +25,7 @@ module snekgen(
 
   genvar j; // index for generate-block for loops
   reg [11:0] i; // index for initial/always for loops
+  reg [11:0] k;
 
   reg [5:0] body_h [maxlen-1:0];
   reg [5:0] body_v [maxlen-1:0];
@@ -47,17 +48,10 @@ module snekgen(
   assign head_v = body_v[0];
   
   // Each bit corresponds to one segment of the snek body
-  wire [maxlen-1:0] snec_locs; // Bits HIGH when hpos and vpos intersect with the segment location
+  //wire [maxlen-1:0] snek_locs; // Bits HIGH when hpos and vpos intersect with the segment location
+  reg [maxlen-1:0] snek_locs;
+  reg snek_loc;
   
-  generate
-  for (j=0; j<maxlen; j=j+1) begin
-    assign snec_locs[j] = (hpos > body_h[j]*20) & (hpos < (body_h[j]+1)*20) & (vpos > body_v[j]*20) & (vpos < (body_v[j]+1)*20);
-  end
-  endgenerate
-  
-  wire snek_loc;
-  assign snek_loc = |snec_locs; // OR all of the locations togethor to be displayed
- 
   reg dead;
   reg do_grow;
   reg did_grow;
@@ -69,6 +63,10 @@ module snekgen(
     if (did_grow) begin
       do_grow <= 0;
     end
+    for (k=0; k<maxlen; k=k+1) begin
+      snek_locs[k] <= (hpos > body_h[k]*20) & (hpos < (body_h[k]+1)*20) & (vpos > body_v[k]*20) & (vpos < (body_v[k]+1)*20);
+    end
+    snek_loc = |snek_locs;
   end
 
   always @(posedge frame_clk) begin
